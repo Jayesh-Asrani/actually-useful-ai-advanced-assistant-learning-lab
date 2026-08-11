@@ -25,12 +25,6 @@ Hands-on workshop: power-user techniques for **Grafana Assistant** and **Investi
 - [MCP](lab/optional-mcp.md) — remediate a pod and file a GitHub issue from inside the Assistant
 - [Dashboarding Mode](lab/optional-dashboard-mode.md) — build a storefront dashboard without writing queries
 
-## House rules
-
-1. Name anything you create (Quickstarts, Rules, Skills, dashboards) with your **initials** as a prefix
-2. Run **one** Deep Investigation (Lab 4) — they're token-hungry
-3. Don't create Automations — read the walkthrough in Lab 3 instead
-4. The feature-flag and k6 controls are facilitator-driven — hands off 🙂
 
 ## After the workshop
 
