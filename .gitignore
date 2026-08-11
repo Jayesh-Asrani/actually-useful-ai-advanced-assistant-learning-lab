@@ -1,0 +1,7 @@
+# OS junk
+.DS_Store
+
+# Internal-only: facilitator material, planning doc, private-repo references.
+# Keep these local (or in a separate private repo) — do not publish.
+facilitator/
+workshop-plan.md
