@@ -9,21 +9,21 @@ Hands-on workshop: power-user techniques for **Grafana Assistant** and **Investi
 
 ## Labs
 
-| # | Lab | Time |
-|---|---|---|
-| 0 | [Log In & Get Oriented](lab/00-login-and-orient.md) | ~10 min |
-| 1 | [Get Ready — baseline prompts](lab/01-get-ready.md) | ~10 min |
-| 2 | [Infrastructure Memories](lab/02-infrastructure-memories.md) | ~10 min |
-| 3 | [Better Prompting](lab/03-better-prompting.md) | ~18 min |
-| 4 | [Investigations](lab/04-investigations.md) | ~25 min |
-| 5 | [Rules and Skills](lab/05-rules-and-skills.md) | ~10 min |
-| 6 | [Challenge: Actually Useful Prompts](lab/06-challenge-useful-prompts.md) | ~9 min |
+| # | Lab | What you'll do | Time |
+|---|---|---|---|
+| 0 | [Log In & Get Oriented](lab/00-login-and-orient.md) | Log into your pre-built stack and find your way around a live e-commerce app (plus its AI shopping agents) | ~10 min |
+| 1 | [Get Ready — baseline prompts](lab/01-get-ready.md) | Send a vague prompt, then a structured one — and see why "action verb + scope + time range" changes everything | ~10 min |
+| 2 | [Infrastructure Memories](lab/02-infrastructure-memories.md) | Run a discovery scan so the Assistant learns your services, metrics, and dependencies — then watch answers get specific | ~10 min |
+| 3 | [Better Prompting](lab/03-better-prompting.md) | Master the power-user toolkit: verbs, modes, `@` mentions, iterative refinement, and one-click Quickstarts | ~18 min |
+| 4 | [Investigations](lab/04-investigations.md) | The storefront breaks for real — launch a multi-agent Deep Investigation and root-cause a postgres connection leak in minutes | ~25 min |
+| 5 | [Rules and Skills](lab/05-rules-and-skills.md) | Encode what you just learned as an always-on Rule and a reusable Skill the Assistant finds on its own | ~10 min |
+| 6 | [Challenge: Actually Useful Prompts](lab/06-challenge-useful-prompts.md) | Craft your most "actually useful" prompt and share it — best one wins | ~9 min |
 
 ## Optional (fast finishers)
 
-- [Watchers & Assistant Search](lab/optional-watchers-and-search.md) — AI Week features: agentic alerting + natural-language search
-- [MCP](lab/optional-mcp.md) — remediate a pod and file a GitHub issue from inside the Assistant
-- [Dashboarding Mode](lab/optional-dashboard-mode.md) — build a storefront dashboard without writing queries
+- [Watchers & Assistant Search](lab/optional-watchers-and-search.md) — describe what "healthy" looks like and let a Watcher flag drift; find anything in Grafana just by describing it
+- [MCP](lab/optional-mcp.md) — restart the broken pod and file the GitHub issue — without leaving the Assistant
+- [Dashboarding Mode](lab/optional-dashboard-mode.md) — build a full storefront dashboard without writing a single query
 
 
 ## After the workshop
