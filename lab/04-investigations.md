@@ -15,8 +15,6 @@
 
 This is the canonical use case for Investigations - a problem that touches multiple services (frontend → product catalog → postgres), needs cross-signal correlation, and a team that doesn't have 30 minutes to do it by hand.
 
-> [!TIP]
-> This scenario is modeled on a real production incident - a connection pool exhaustion that took the on-call team 28 minutes to root-cause manually. Assistant Investigations found it in 8 minutes.
 
 ---
 
