@@ -23,6 +23,7 @@ Hands-on workshop: power-user techniques for **Grafana Assistant** and **Investi
 
 - [Watchers & Assistant Search](lab/optional-watchers-and-search.md) — describe what "healthy" looks like and let a Watcher flag drift; find anything in Grafana just by describing it
 - [MCP](lab/optional-mcp.md) — restart the broken pod and file the GitHub issue — without leaving the Assistant
+- [Automations & gcx](lab/optional-automations-and-gcx.md) — run the Assistant on a schedule, then query production and talk to the Assistant from your terminal
 - [Dashboarding Mode](lab/optional-dashboard-mode.md) — build a full storefront dashboard without writing a single query
 
 
