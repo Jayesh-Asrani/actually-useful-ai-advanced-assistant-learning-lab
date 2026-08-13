@@ -201,7 +201,7 @@ Each scheduled run creates a dedicated Assistant conversation, so you can inspec
 > **Token consumption matters.** Automation runs count against your monthly Assistant token limits, and frequent schedules accumulate fast across the team. Default to longer intervals and tighten only when there's a clear reason.
 
 > [!NOTE]
-> **Public preview.** Breaking changes may occur before GA. Personal automations need the `grafana-assistant-app.automations.user:*` role; team-wide ("Everybody" visibility) needs `grafana-assistant-app.automations.tenant:*`. Either way, plugin access (`plugins.app:access`) is required. See the [Automations doc](https://grafana.com/docs/grafana-cloud/machine-learning/assistant/guides/automations/) for full setup.
+> Personal automations need the `grafana-assistant-app.automations.user:*` role; team-wide ("Everybody" visibility) needs `grafana-assistant-app.automations.tenant:*`. Either way, plugin access (`plugins.app:access`) is required. See the [Automations doc](https://grafana.com/docs/grafana-cloud/machine-learning/assistant/guides/automations/) for full setup.
 
 ---
 
@@ -212,7 +212,7 @@ Every Assistant response has thumbs-up and thumbs-down buttons. Scroll back to a
 In practice: clicking thumbs-down and adding a specific note (e.g., "Picked the wrong data source - I expected Loki not Prometheus") routes that feedback to the team improving the Assistant's prompt handling. Thumbs-up with notes about what worked is equally valuable.
 
 > [!NOTE]
-> Quality feedback with concrete notes is one of the highest-leverage things you can do as an SE. The Assistant team uses these to refine system prompts, tool selection, and tuning. Even one well-written thumbs-down can change how the Assistant responds to a class of queries.
+> Quality feedback with concrete notes is one of the highest-leverage things you can do. The Assistant team uses these to refine system prompts, tool selection, and tuning. Even one well-written thumbs-down can change how the Assistant responds to a class of queries.
 
 ---
 

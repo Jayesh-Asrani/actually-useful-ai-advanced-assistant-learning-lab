@@ -10,7 +10,7 @@
 - Understand the trade-offs: tool limits, auto-approve vs. human-in-the-loop, blast radius
 
 > [!NOTE]
-> **This lab has two parts that can be run independently.** Part A uses the Kubernetes MCP to remediate the issue you found in Lab 4. Part B uses the GitHub MCP to file an issue about the same problem. They share the same scenario but neither depends on the other - you can run both, or pick one based on what you want to demo to a customer.
+> **This lab has two parts that can be run independently.** Part A uses the Kubernetes MCP to remediate the issue you found in Lab 4. Part B uses the GitHub MCP to file an issue about the same problem. They share the same scenario but neither depends on the other - you can run both, or pick whichever interests you.
 
 ---
 
@@ -18,14 +18,14 @@
 
 The Model Context Protocol (MCP) is the open standard for connecting LLM agents to external tools and systems. In Grafana, MCP lets the Assistant talk to systems outside of Grafana - Kubernetes clusters, issue trackers, code repos, documentation - through a standardized interface.
 
-The appenv workshop stack ships with two MCP servers pre-configured:
+The workshop stack ships with two MCP servers pre-configured:
 
 | MCP server | What it does | Auth |
 |:--|:--|:--|
 | `Kubernetes [a]` | Read pod/deployment/service state, delete pods, scale workloads, update HPAs | Service account token (pre-configured) |
 | `GitHub Repositories [a]` + `GitHub Issues [a]` + `GitHub Pull Requests [a]` | Read repos, file and comment on issues, manage PRs against `field-eng-appenv-mirror` | Workshop GitHub token (pre-configured) |
 
-Both are wired up by Terraform when the stack is deployed - you don't have to configure them yourself.
+Both come pre-configured with the workshop stack - you don't have to set them up yourself.
 
 ---
 
@@ -41,9 +41,6 @@ Both are wired up by Terraform when the stack is deployed - you don't have to co
 4. Each should show as connected/healthy with its tool count (e.g. `8 of 8 tools enabled`)
 
 If any are missing or show errors, let your facilitator know - the workshop stack should have all of them by default.
-
-> [!TIP]
-> **Why the `[a]` suffix?** The `[a]` stands for **AppEnv** - the workshop's application environment. The Terraform that provisions AppEnv registers these MCPs with the `[a]` tag so workshop facilitators can tell at a glance which integrations came from AppEnv provisioning vs. created manually by learners during the lab.
 
 ---
 
@@ -112,7 +109,7 @@ The new pod should appear with age in seconds and a restart count of 0.
 > **This is a real action on the cluster.** You just deleted a pod via an LLM-orchestrated call. In production, the safety questions are:
 >
 > - **Auto-approve vs. confirm**: by default, MCP actions surface a confirmation prompt. Auto-approve removes the prompt and is appropriate only for well-tested workflows
-> - **RBAC scope**: the workshop service account is scoped to the ecommerce-prod namespace and a fixed verb set. In your customer environments, scope is the most important guardrail
+> - **RBAC scope**: the workshop service account is scoped to the ecommerce-prod namespace and a fixed verb set. In your own environments, scope is the most important guardrail
 > - **Blast radius**: deleting one pod is recoverable. Scaling a deployment to zero, or deleting a deployment, is not. Match the RBAC verbs available to the actual risk tolerance
 
 ### A4 - Talk through what just happened
@@ -190,7 +187,7 @@ The Assistant calls the GitHub MCP's create-issue tool. You should get back the 
 Click through to verify the issue actually appeared on GitHub. You can also check the [issues list](https://github.com/grafana/field-eng-appenv-mirror/issues) directly.
 
 > [!TIP]
-> **The default repo is set via a baked-in Rule.** The appenv stack has a Rule called "Default GitHub Repo" that points all GitHub MCP actions at `field-eng-appenv-mirror` unless you explicitly override. This is why you didn't have to specify the org and repo every time. Customer setups should do the same - use a Rule to anchor the default target so users don't have to remember it.
+> **The default repo is set via a baked-in Rule.** The workshop stack has a Rule called "Default GitHub Repo" that points all GitHub MCP actions at `field-eng-appenv-mirror` unless you explicitly override. This is why you didn't have to specify the org and repo every time. Use the same pattern in your own setup - a Rule that anchors the default target so users don't have to remember it.
 
 ### B3 - Connect it to the Skill from Lab 5
 
@@ -228,7 +225,7 @@ Run the GitHub MCP server container in your own infrastructure (useful for GitHu
 - `repo` - for issues, PRs, code
 - `read:org` - if querying org-level data
 
-**How appenv deploys this for the workshop**
+**How the workshop wires this up**
 
 The workshop stack registers **three separate MCP integrations** rather than one - one per GitHub toolset, so each can be enabled/disabled independently and so the Assistant's tool count per server stays well below the 16-tool quality threshold:
 
@@ -237,8 +234,6 @@ The workshop stack registers **three separate MCP integrations** rather than one
 | `GitHub Repositories [a]` | `https://api.githubcopilot.com/mcp/x/repos` |
 | `GitHub Issues [a]` | `https://api.githubcopilot.com/mcp/x/issues` |
 | `GitHub Pull Requests [a]` | `https://api.githubcopilot.com/mcp/x/pull_requests` |
-
-Each is created by `appenv-deploy/assistant.tf` via a `shell_script` resource that loops over the three toolsets and POSTs to the Grafana Assistant integrations API. The PAT comes from a sensitive Terraform variable (`assistant_github_token`) and gets injected as `Authorization: Bearer <token>` in the custom headers. Scope is tenant-wide and applications is `all`, so every user on the stack sees them by default.
 
 Open **Edit** on `GitHub Issues [a]` in the MCP servers settings to see this in practice - the hosted Copilot endpoint as the Server URL, the `Authorization` header (value shown as `configured` once saved), and the **Tools** tab listing the 8 issue tools (`add_issue_comment`, `get_label`, `issue_read`, `issue_write`, etc.) with their Read/Write tags and approval modes:
 
@@ -249,7 +244,7 @@ Open **Edit** on `GitHub Issues [a]` in the MCP servers settings to see this in 
 
 ## When NOT to use MCP
 
-A few things to know that will come up in customer conversations:
+A few things worth knowing:
 
 - **More than 16 tools enabled significantly degrades quality.** Each MCP server contributes multiple tools. Enable only what you need.
 - **Only remote MCP servers are supported** - no local MCP servers (yet). The K8s MCP works because it's deployed remotely to the cluster, even though it's "in the same network" as the workshop stack.

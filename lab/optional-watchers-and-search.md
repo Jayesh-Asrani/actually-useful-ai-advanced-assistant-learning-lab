@@ -1,6 +1,6 @@
 # Optional Lab - 👁️ Watchers & Assistant Search
 
-Two AI Week releases, both about getting answers *before* you go looking: **Watcher Agents** (agentic alerting, public preview) and **Assistant Search** (natural-language search across Grafana, public preview). Your facilitator demoed both — this lab lets you try them in your own stack.
+Two AI Week releases, both about getting answers *before* you go looking: **Watcher Agents** (agentic alerting) and **Assistant Search** (natural-language search across Grafana). Your facilitator demoed both — this lab lets you try them in your own stack.
 
 **Time: ~10 minutes**
 

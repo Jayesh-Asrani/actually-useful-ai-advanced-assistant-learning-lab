@@ -7,9 +7,6 @@
 - Trigger a Skill via slash command and via semantic discovery
 - Understand the distinction: Rules **always apply**; Skills are **discovered at runtime**
 
-> [!NOTE]
-> "Skills" were renamed from "playbooks" on March 3, 2026. If you see "playbook" in older docs or in screenshots, it's the same thing.
-
 ---
 
 ## The scenario
@@ -40,7 +37,7 @@ Fill out the form:
 Click **Create rule**.
 
 > [!TIP]
-> **Why "Everybody" scope:** RED method is a team standard, not a personal preference. Scoping it org-wide means every SE on the stack gets the same baseline behavior. **Just me** scope is fine for testing - promote to Everybody once you're happy.
+> **Why "Everybody" scope:** RED method is a team standard, not a personal preference. Scoping it org-wide means every user on the stack gets the same baseline behavior. **Just me** scope is fine for testing - promote to Everybody once you're happy.
 
 ---
 

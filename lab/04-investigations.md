@@ -7,9 +7,6 @@
 - Read the structured investigation report and refine it through the Workspace conversation
 - Understand where Investigations fits in the incident response workflow
 
-> [!NOTE]
-> **Investigations is in Public Preview** as of April 2026. Breaking changes may occur before GA. Treat the workflow as roughly stable but expect UI details to shift.
-
 ---
 
 ## The scenario
@@ -19,7 +16,7 @@
 This is the canonical use case for Investigations - a problem that touches multiple services (frontend → product catalog → postgres), needs cross-signal correlation, and a team that doesn't have 30 minutes to do it by hand.
 
 > [!TIP]
-> This scenario is a real Grafana Labs production incident from the "Day in the Life" demo - a connection pool exhaustion that took the on-call team 28 minutes to root-cause manually. Assistant Investigations found it in 8 minutes at 0.91 confidence.
+> This scenario is modeled on a real production incident - a connection pool exhaustion that took the on-call team 28 minutes to root-cause manually. Assistant Investigations found it in 8 minutes.
 
 ---
 
@@ -122,7 +119,7 @@ Draft the rollback steps as a backlog item I can paste into our issue tracker.
 ---
 
 > [!NOTE]
-> **Worth knowing: MCP now works in Investigations.** Earlier versions of this lab (and earlier guidance to customers) said MCP actions weren't available in Investigations. That's no longer true - the Workspace conversation can call MCP servers like any regular Assistant chat, so you can ask it to file a GitHub issue, post to Slack, etc. directly from the workbook. We're not exercising that flow in this lab, but it's worth knowing for customer conversations. See the [Grafana Assistant docs on MCP actions in Skills](https://grafana.com/docs/grafana-cloud/machine-learning/assistant/guides/skills/#take-action-with-mcp) for the supported environments (Slack, web Assistant, investigation mode, and backend agents).
+> **MCP works in Investigations too.** The Workspace conversation can call MCP servers like any regular Assistant chat, so you can ask it to file a GitHub issue, post to Slack, etc. directly from the workbook. We're not exercising that flow in this lab. See the [Grafana Assistant docs on MCP actions in Skills](https://grafana.com/docs/grafana-cloud/machine-learning/assistant/guides/skills/#take-action-with-mcp) for the supported environments (Slack, web Assistant, investigation mode, and backend agents).
 
 ---
 
