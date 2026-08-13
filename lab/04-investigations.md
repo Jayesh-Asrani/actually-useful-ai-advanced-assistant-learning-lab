@@ -121,12 +121,6 @@ Draft the rollback steps as a backlog item I can paste into our issue tracker.
 
 ---
 
-## Limitations worth knowing
-
-- **Investigations is Cloud-only** - not available on self-managed Grafana Enterprise/OSS
-- **Coverage depends on data sources** - Investigations is most useful when you have metrics + logs + traces at minimum. With only metrics, it degrades to a fancier metric query helper.
-- **It's still LLM output** - high-confidence findings can be wrong. Verify before acting, and capture what you actually confirmed by adding corrections through the Workspace conversation (then regenerating) or by writing the verified version into your incident tool / ticket.
-
 ---
 
 ## ✅ Checklist
