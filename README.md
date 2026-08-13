@@ -17,14 +17,14 @@ Hands-on workshop: power-user techniques for **Grafana Assistant** and **Investi
 | 3 | [Better Prompting](lab/03-better-prompting.md) | Master the power-user toolkit: verbs, modes, `@` mentions, iterative refinement, and one-click Quickstarts | ~18 min |
 | 4 | [Investigations](lab/04-investigations.md) | The storefront breaks for real — launch a multi-agent Deep Investigation and root-cause a postgres connection leak in minutes | ~25 min |
 | 5 | [Rules and Skills](lab/05-rules-and-skills.md) | Encode what you just learned as an always-on Rule and a reusable Skill the Assistant finds on its own | ~10 min |
-| 6 | [Challenge: Actually Useful Prompts](lab/06-challenge-useful-prompts.md) | Craft your most "actually useful" prompt and share it — best one wins | ~9 min |
+| 6 | [Dashboarding Mode](lab/06-dashboarding-mode.md) | Build a full storefront dashboard without writing a single query | ~8 min |
+| 7 | [Automations & gcx](lab/07-automations-and-gcx.md) | Run the Assistant on a schedule, then query production and talk to the Assistant from your terminal | ~12 min |
+| 8 | [Challenge: Actually Useful Prompts](lab/08-challenge-useful-prompts.md) | Craft your most "actually useful" prompt and share it — best one wins | ~7 min |
 
 ## Optional (fast finishers)
 
 - [Watchers & Assistant Search](lab/optional-watchers-and-search.md) — describe what "healthy" looks like and let a Watcher flag drift; find anything in Grafana just by describing it
 - [MCP](lab/optional-mcp.md) — restart the broken pod and file the GitHub issue — without leaving the Assistant
-- [Automations & gcx](lab/optional-automations-and-gcx.md) — run the Assistant on a schedule, then query production and talk to the Assistant from your terminal
-- [Dashboarding Mode](lab/optional-dashboard-mode.md) — build a full storefront dashboard without writing a single query
 
 
 ## After the workshop

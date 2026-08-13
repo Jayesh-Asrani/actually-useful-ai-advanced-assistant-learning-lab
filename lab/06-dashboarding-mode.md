@@ -1,8 +1,8 @@
-# Optional Lab - 📊 Dashboarding Mode
+# Lab 6 - 📊 Dashboarding Mode
 
-Fast finisher? Build a storefront overview dashboard without writing a single query, using the Assistant's **Dashboarding** mode.
+Build a storefront overview dashboard without writing a single query, using the Assistant's **Dashboarding** mode.
 
-**Time: ~10 minutes**
+**Time: ~8 minutes**
 
 ---
 

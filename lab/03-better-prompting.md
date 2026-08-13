@@ -163,7 +163,7 @@ If you don't see it, confirm the **Enabled** toggle is on for the Quickstart und
 > **Why this matters:** Quickstarts encode your team's "how to start a check" knowledge into the Assistant's UI. New team members get expert-level prompts for free. Promote successful personal Quickstarts to team-wide as they prove themselves.
 
 > [!TIP]
-> Want the same prompt to run **on a schedule** instead of on demand? That's an **Automation** - covered hands-on in the optional [Automations & gcx lab](./optional-automations-and-gcx.md).
+> Want the same prompt to run **on a schedule** instead of on demand? That's an **Automation** - covered hands-on in [Lab 7 - Automations & gcx](./07-automations-and-gcx.md).
 
 ---
 

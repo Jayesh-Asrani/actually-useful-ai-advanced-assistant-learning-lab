@@ -1,12 +1,12 @@
-# Optional Lab - ⚙️ Automations & gcx
+# Lab 7 - ⚙️ Automations & gcx
 
 The Assistant isn't only a chat panel. In this lab you'll run it two more ways: **on a schedule** with Automations, and **from your terminal** with gcx, the Grafana CLI.
 
-**Time: ~15 minutes** · You'll need your laptop's terminal for Part 2 (macOS/Linux, or Windows with the pre-built binary).
+**Time: ~12 minutes** · You'll need your laptop's terminal for Part 2 (macOS/Linux, or Windows with the pre-built binary). Tip: kick off the gcx install (Part 2, Step 1) in the background before starting Part 1.
 
 ---
 
-## Part 1 - Automations (~7 min)
+## Part 1 - Automations (~5 min)
 
 Automations run a saved prompt for you — on a schedule or on demand — with each run landing in its own Assistant conversation. One caution on a workshop stack: a *scheduled* automation keeps consuming Assistant tokens after the session ends. So we'll do this with guardrails: create one with **no schedule** (manual-only runs), trigger it once, and delete it when you're done.
 
@@ -44,7 +44,7 @@ Delete your automation (or at minimum confirm it has no schedule and is disabled
 
 ---
 
-## Part 2 - gcx: the Assistant in your terminal (~8 min)
+## Part 2 - gcx: the Assistant in your terminal (~7 min)
 
 [gcx](https://github.com/grafana/gcx) is the CLI for Grafana — structured access to dashboards, alerts, metrics, logs, traces, and the Assistant itself, from your terminal or your AI coding agent.
 

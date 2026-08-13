@@ -1,4 +1,4 @@
-# Lab 6 - 🧠 Challenge: Actually Useful Prompts
+# Lab 8 - 🧠 Challenge: Actually Useful Prompts
 
 You've made it to the last exercise!
 
