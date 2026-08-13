@@ -2,6 +2,8 @@
 
 The Assistant isn't only a chat panel. In this lab you'll run it two more ways: **on a schedule** with Automations, and **from your terminal** with gcx, the Grafana CLI.
 
+*The diagnostic loop, part 4 of 4: **keep watch, everywhere.** The incident from Lab 5 is still running - a well-built automation should catch it without being asked, and the CLI should confirm it without opening a browser.*
+
 **Time: ~12 minutes** · You'll need your laptop's terminal for Part 2 (macOS/Linux, or Windows with the pre-built binary). Tip: kick off the gcx install (Part 2, Step 1) in the background before starting Part 1.
 
 ---
@@ -28,6 +30,8 @@ Summarize the top 5 errors and slowest endpoints across the ecommerce-prod servi
 Trigger a **manual run** from the automation's page. Each run creates a dedicated Assistant conversation — open it when the run completes and read the result end-to-end.
 
 This is the part that makes Automations more than a cron job: every run is a full conversation you can inspect after the fact, follow up in, and compare against previous runs.
+
+Here's the test: the Lab 5 incident is still live. Did your automation's summary surface it — same service, same error signature your investigation found? A scheduled version of this prompt would have flagged the incident before anyone opened a dashboard.
 
 ### Step 3 - Think in schedules
 
@@ -78,10 +82,10 @@ gcx config check
 # what dashboards exist?
 gcx dashboards list
 
-# error logs from the storefront namespace
+# error logs from the storefront namespace - spot the signature your Lab 5 investigation found
 gcx logs query '{namespace="ecommerce-prod"} |= "error"' --since 1h
 
-# request rate as a terminal graph 📈
+# request rate as a terminal graph 📈 - swap in the service your investigation blamed
 gcx metrics query 'sum(rate(traces_spanmetrics_calls_total{service_name="frontend"}[5m]))' --since 1h -o graph
 ```
 

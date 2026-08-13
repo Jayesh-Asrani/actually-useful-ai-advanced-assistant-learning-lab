@@ -1,5 +1,7 @@
 # Lab 6 - 📚 Rules and Skills
 
+*The diagnostic loop, part 3 of 4: **encode the why into a runbook.** You just root-caused this incident from scratch in Lab 5 - now make the next one take minutes.*
+
 ## Learning objectives
 
 - Write an always-on Rule that shapes Assistant behavior across every conversation
@@ -119,6 +121,8 @@ In a new conversation, type:
 The slash command should auto-complete from the Skill you just created.
 
 Submit it (with or without additional context after the slash command). Watch the Assistant execute the workflow you wrote step by step. It should walk through frontend errors → product catalog dependency → logs for `pq:` errors → postgres connection metrics → recent deployments, then summarize.
+
+The failure from Lab 5 is still live, so the Skill is investigating real data - compare how quickly it converges on the root cause versus your from-scratch Deep Investigation. That speed difference is the entire value proposition of encoding runbooks.
 
 ---
 

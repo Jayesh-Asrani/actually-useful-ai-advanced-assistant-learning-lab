@@ -2,6 +2,8 @@
 
 Build a storefront overview dashboard without writing a single query, using the Assistant's **Dashboarding** mode.
 
+*The diagnostic loop, part 1 of 4: **dashboards tell you where to look.** A good overview covers the three places incidents show up - user-facing errors, per-service health, and shared infrastructure.*
+
 **Time: ~8 minutes**
 
 ---
@@ -17,8 +19,8 @@ Send:
 ```text
 Create a dashboard called "Storefront Overview - <your initials>" with:
 - A row for the frontend: request rate, error rate, and P95 latency
-- A row for productcatalogservice: request rate, error rate, and P95 latency
-- A row for infrastructure: postgres connection count and productcatalogservice pod restarts
+- A row for the busiest backend services: request rate and error rate for each
+- A row for shared infrastructure: database connection usage and pod restart counts across the ecommerce-prod namespace
 Use the workshop Prometheus data source, last 3 hours as the default time range.
 ```
 
@@ -33,7 +35,7 @@ Add a stat panel at the top showing current frontend success rate as a percentag
 ```
 
 ```text
-Change the postgres connections panel to show the max connection limit as a horizontal line.
+On the database connections panel, draw the configured maximum as a horizontal line - saturation is only visible against a limit.
 ```
 
 ```text
@@ -42,7 +44,7 @@ Add a text panel at the top explaining what this dashboard is for and who owns i
 
 ## Step 4 - Set your baseline
 
-Open the dashboard and take in the healthy state - request rates steady, errors near zero. Then ask the Assistant:
+Open the dashboard and take in the healthy state - steady request rates, errors near zero, connections comfortably below their limit, restart counts flat. Then ask the Assistant:
 
 ```text
 Look at @Storefront Overview - <your initials>. Summarize the current health of the storefront and tell me which panel you'd watch most closely if something started to go wrong.

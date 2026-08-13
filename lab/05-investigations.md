@@ -1,5 +1,7 @@
 # Lab 5 - 🔎 Investigations
 
+*The diagnostic loop, part 2 of 4: **investigations tell you why.** Your Lab 4 dashboard shows what changed; the investigation explains it.*
+
 ## Learning objectives
 
 - Root-cause a failure your facilitator injected - without knowing what broke
@@ -13,10 +15,10 @@
 
 > "We just got a page: the storefront is degraded, customers are complaining, and the 'Frontend Success 99.5%' SLO is burning. What broke?"
 
-Your facilitator has enabled one or more failure flags on your stack - connection leaks, failing reads, cart errors, checkout slowdowns - and won't say which. At the end of the lab you'll be asked: **what was broken, what's the root cause, and what's your evidence?**
+Your facilitator has enabled one or more failure flags on your stack - the environment has a dozen ways to break, from misbehaving services to strained dependencies - and won't say which. At the end of the lab you'll be asked: **what was broken, what's the root cause, and what's your evidence?**
 
 > [!IMPORTANT]
-> **No peeking at the Feature Flags dashboard** - it gives away the answer. And **leave the failure running**: Lab 6's Skill investigates this same incident.
+> **No peeking at the Feature Flags dashboard** - it gives away the answer. Your **Lab 4 dashboard is fair game though** - that's exactly what it's for. And **leave the failure running**: Labs 6 and 7 build on this same incident.
 
 ---
 
@@ -24,14 +26,14 @@ Your facilitator has enabled one or more failure flags on your stack - connectio
 
 Navigate to **Assistant → Investigations** and click **+ New Investigation** (Deep Investigation mode is the default).
 
-Describe the problem in terms of symptoms - glance at your storefront's App URL first if you want specifics. For example:
+First, gather symptoms the way you would on call: refresh your storefront's App URL, and check your **Lab 4 baseline dashboard** - which panels moved? Errors up? Connections climbing toward the limit? Restarts ticking? Fold what you see into the problem description. For example:
 
 ```text
 The storefront is degraded - users are hitting errors and some content isn't loading. The "Frontend Success 99.5%" SLO is burning. Investigate the storefront services and their dependencies, including any recent changes, and report the most likely root cause with supporting evidence.
 ```
 
 > [!TIP]
-> Symptoms + business impact + scope, no presumed cause (let the agents build the hypotheses), and an explicit ask for evidence.
+> Symptoms + business impact + scope, no presumed cause (let the agents build the hypotheses), and an explicit ask for evidence. If your dashboard showed something concrete - "database connections are climbing" - include it: observed facts sharpen the investigation without biasing it.
 
 ---
 
@@ -51,7 +53,7 @@ When the workbook flips to **Completed**, the header shows the Root Cause headli
 - **Tree View** - the hypothesis tree: what else was considered, and why this cause won
 - **Timeline** - the reconstructed event sequence, charts attached
 
-Read the Detailed report end-to-end hunting for three things: the **smoking-gun evidence** (a log line, metric pattern, or trace), the **failure pattern** (e.g. a repeating spike-crash-restart sawtooth), and a **root cause statement** you could defend to a teammate. A good report connects the user-facing symptom, the failing component, and the underlying mechanism - not just one of them.
+Read the Detailed report end-to-end hunting for three things: the **smoking-gun evidence** (a log line, metric pattern, or trace), the **failure pattern** (incidents usually reduce to a few mechanisms: a shared resource saturating, a dependency erroring, a config or code change altering behavior, or a service crash-looping - which is yours?), and a **root cause statement** you could defend to a teammate. A good report connects the user-facing symptom, the failing component, and the underlying mechanism - not just one of them.
 
 ---
 
@@ -80,7 +82,7 @@ When the room's investigations have landed, your facilitator will ask:
 3. **What's your evidence?** (the log line / metric / trace that convinced you)
 4. **What would you do about it?** (fix + prevention)
 
-Then the flag(s) get revealed. Close but not exact is normal - that's why the evidence and Tree View matter more than the headline.
+Then the flag(s) get revealed. Close but not exact is normal - that's why the evidence and Tree View matter more than the headline. Afterwards, look at your Lab 4 dashboard one more time: you should now be able to point at the exact panels that were telling the story all along.
 
 ---
 
