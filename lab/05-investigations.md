@@ -6,7 +6,7 @@
 
 - Root-cause a failure your facilitator injected - without knowing what broke
 - Run a Deep Investigation and watch the multi-agent fan-out across metrics, logs, and traces
-- Read the report (Detailed / Tree View / Timeline) and refine it through the Workspace conversation
+- Read the report (Report / Hypotheses / Sources) and refine it through the Workspace conversation
 - Defend your root cause with evidence at the reveal
 
 ---
@@ -24,7 +24,7 @@ Your facilitator has enabled one or more failure flags on your stack - the envir
 
 ## Step 1 - Start a Deep Investigation
 
-Navigate to **Assistant → Investigations** and click **+ New Investigation** (Deep Investigation mode is the default).
+Navigate to **Assistant → Investigations** and click **+ New Investigation** - it opens the Workspace with **Investigation** mode pre-selected (the docs also call this Deep Investigation).
 
 First, gather symptoms the way you would on call: refresh your storefront's App URL, and check your **Lab 4 baseline dashboard** - which panels moved? Errors up? Connections climbing toward the limit? Restarts ticking? Fold what you see into the problem description. For example:
 
@@ -37,23 +37,23 @@ The storefront is degraded - users are hitting errors and some content isn't loa
 
 ---
 
-## Step 2 - Watch the multi-agent fan-out
+## Step 2 - Watch the hypotheses form
 
-A Lead investigator spawns specialists that work in parallel - Prometheus (metrics), Loki (logs), Tempo (traces), MCP (recent changes). Watch the **Agent activity timeline** fill in, and hover any agent's bar to see what it checked and the cause level it attributed: **Local Cause**, **Systemic Cause**, or **Root Cause**.
+The investigation works like a scientist: specialist agents fan out across metrics, logs, traces, and even your Kubernetes and GitHub integrations, then post **hypotheses** (H1, H2, H3...) that appear as chips at the top of the conversation. Watch the live updates as evidence arrives - each hypothesis moves from **Open** to **Suspected**, gets demoted to **Symptom**, or ends up **Blocked** when a check can't be completed. Your custom Rules apply here too (look for the Rules count at the top).
 
-The run takes a few minutes and continues in the background - feel free to start Lab 6 and come back (find runs under **Assistant → Investigations**).
+The run takes several minutes and continues in the background - feel free to start Lab 6 and come back (find runs under **Assistant → Investigations**).
 
 ---
 
 ## Step 3 - Read the report
 
-When the workbook flips to **Completed**, the header shows the Root Cause headline. Three views:
+When the run completes, a structured report lands on the canvas beside the conversation, with three tabs:
 
-- **Detailed report** - findings, key observations, next steps
-- **Tree View** - the hypothesis tree: what else was considered, and why this cause won
-- **Timeline** - the reconstructed event sequence, charts attached
+- **Report** - the root-cause narrative: incident timeline, failure-propagation chain, blast radius table, evidence gaps, and recommended next steps (with confidence levels)
+- **Hypotheses** - every hypothesis considered, its final state, and the evidence for each (with **Disprove** buttons - this is the alternatives view)
+- **Sources** - every query and check the report's claims trace back to
 
-Read the Detailed report end-to-end hunting for three things: the **smoking-gun evidence** (a log line, metric pattern, or trace), the **failure pattern** (incidents usually reduce to a few mechanisms: a shared resource saturating, a dependency erroring, a config or code change altering behavior, or a service crash-looping - which is yours?), and a **root cause statement** you could defend to a teammate. A good report connects the user-facing symptom, the failing component, and the underlying mechanism - not just one of them.
+Read the Report end-to-end hunting for three things: the **smoking-gun evidence** (a log line, metric pattern, or trace), the **failure pattern** (incidents usually reduce to a few mechanisms: a shared resource saturating, a dependency erroring, a config or code change altering behavior, or a service crash-looping - which is yours?), and a **root cause statement** you could defend to a teammate. A good report connects the user-facing symptom, the failing component, and the underlying mechanism - not just one of them.
 
 ---
 
@@ -71,6 +71,8 @@ Or convert findings into another artifact:
 Turn the root cause and remediation into a Slack message I can paste into #incident-storefront.
 ```
 
+Notice the suggested follow-ups under the report - including **Create skill** ("document this failure mode for faster future triage"). Hold that thought: it's exactly what Lab 6 does.
+
 ---
 
 ## Step 5 - Report back (the reveal)
@@ -82,7 +84,7 @@ When the room's investigations have landed, your facilitator will ask:
 3. **What's your evidence?** (the log line / metric / trace that convinced you)
 4. **What would you do about it?** (fix + prevention)
 
-Then the flag(s) get revealed. Close but not exact is normal - that's why the evidence and Tree View matter more than the headline. Afterwards, look at your Lab 4 dashboard one more time: you should now be able to point at the exact panels that were telling the story all along.
+Then the flag(s) get revealed. Close but not exact is normal - that's why the evidence and the Hypotheses view matter more than the headline. Afterwards, look at your Lab 4 dashboard one more time: you should now be able to point at the exact panels that were telling the story all along.
 
 ---
 
@@ -94,7 +96,7 @@ Then the flag(s) get revealed. Close but not exact is normal - that's why the ev
 ## ✅ Checklist
 
 - [ ] Launched a Deep Investigation described in terms of symptoms
-- [ ] Watched the fan-out and hovered an agent for its cause-level attribution
+- [ ] Watched hypotheses form and change state (Open → Suspected / Symptom) as evidence arrived
 - [ ] Identified the root cause and its supporting evidence in the report
 - [ ] Refined or converted the report via the Workspace conversation
 - [ ] Answered the reveal questions: what broke, root cause, evidence, fix

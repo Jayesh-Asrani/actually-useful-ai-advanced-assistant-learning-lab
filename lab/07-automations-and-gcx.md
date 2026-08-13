@@ -10,24 +10,24 @@ The Assistant isn't only a chat panel. In this lab you'll run it two more ways: 
 
 ## Part 1 - Automations (~5 min)
 
-Automations run a saved prompt for you — on a schedule or on demand — with each run landing in its own Assistant conversation. One caution on a workshop stack: a *scheduled* automation keeps consuming Assistant tokens after the session ends. So we'll do this with guardrails: create one with **no schedule** (manual-only runs), trigger it once, and delete it when you're done.
+Automations run a saved prompt for you — on a schedule or on demand — with each run landing in its own Assistant conversation. One caution on a workshop stack: a *scheduled* automation keeps consuming Assistant tokens after the session ends. So we'll do this with guardrails: create one **paused** (Enable now off - it never fires on its own), trigger a single manual run, and delete it when you're done.
 
-### Step 1 - Create a manual-only Automation
+### Step 1 - Create a paused Automation
 
-1. Navigate to **Assistant → Settings → Automations** and click **+ New automation**
-2. **Basics:** name it `Storefront summary - <your initials>`, visibility **Just me**
-3. **Schedule:** leave it **empty** — this makes the automation manual-only
-4. **Prompt:**
+1. Navigate to **Assistant → Automations** in the left nav and click **+ New automation** (there's also a "describe it in plain English" generator and a gallery of suggested automations - worth a look)
+2. **Name:** `Storefront summary - <your initials>`, visibility **Just me**
+3. **Instructions:**
 
 ```text
 Summarize the top 5 errors and slowest endpoints across the ecommerce-prod services in the last hour. Flag anything outside normal range and end with one recommended next action.
 ```
 
-5. Save
+4. **Schedule:** leave the default - but toggle **Enable now OFF**. The automation saves as **Paused**: it never fires on its own, which is the guardrail we want on a workshop stack
+5. Click **Create automation**
 
 ### Step 2 - Run it and inspect the result
 
-Trigger a **manual run** from the automation's page. Each run creates a dedicated Assistant conversation — open it when the run completes and read the result end-to-end.
+On the automation's page, click **Run** to trigger a manual run. It appears under **Run history** (typically completes in ~1-2 minutes) — open **View** when it's done and read the result end-to-end. Note the **Estimated usage** on the page: a single run of this prompt costs a few hundred thousand tokens, which is why paused + manual is the right mode today and why scheduled intervals deserve thought.
 
 This is the part that makes Automations more than a cron job: every run is a full conversation you can inspect after the fact, follow up in, and compare against previous runs.
 
@@ -40,11 +40,11 @@ You won't schedule this one today, but note what you *would* schedule back home:
 - **Daily morning summary** (`0 9 * * 1-5`): errors + slowest endpoints in the last 24h
 - **Weekly capacity check** (`0 9 * * 1`): per-pod CPU/memory/restarts over 7 days, flag >80% CPU
 
-Rule of thumb: default to longer intervals (the minimum is 15 minutes) — runs count against the monthly Assistant token budget, and team-wide schedules accumulate fast.
+Rule of thumb: default to longer intervals (schedules range from every 15 minutes to monthly) — runs count against the monthly Assistant token budget, and team-wide schedules accumulate fast.
 
 ### Step 4 - Clean up
 
-Delete your automation (or at minimum confirm it has no schedule and is disabled). Shared stack budgets thank you.
+Delete your automation (or at minimum confirm it still shows **Paused**). Stack budgets thank you.
 
 ---
 
@@ -117,7 +117,7 @@ This is the punchline: the same access you just used by hand is what gives an AI
 
 ## ✅ Checklist
 
-- [ ] Created a **manual-only** Automation, ran it once, and read the run's conversation
+- [ ] Created a **paused** Automation, ran it once manually, and read the run's conversation
 - [ ] Deleted (or disabled) the Automation
 - [ ] Installed gcx and logged into your workshop stack
 - [ ] Ran at least one metrics or logs query from the terminal

@@ -24,7 +24,12 @@ Create a dashboard called "Storefront Overview - <your initials>" with:
 Use the workshop Prometheus data source, last 3 hours as the default time range.
 ```
 
-Review what the Assistant proposes, then let it create the dashboard.
+Review what the Assistant proposes, then let it create the dashboard. It queries your datasources, validates each panel query, builds the rows, and even screenshots the result to verify it rendered.
+
+When it finishes, the dashboard is open in **edit mode** - click **Save** (top of the dashboard) to persist it.
+
+> [!TIP]
+> If the Assistant stops with *"An external service is temporarily unavailable"*, just click **Retry** - it picks up where it left off.
 
 ## Step 3 - Iterate
 

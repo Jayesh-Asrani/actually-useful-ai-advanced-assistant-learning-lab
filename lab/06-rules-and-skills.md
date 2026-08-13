@@ -15,7 +15,7 @@
 
 > "Every time the storefront has a problem, the on-call walks the same investigation flow: frontend errors → product catalog → postgres connections → recent deployments. We want the Assistant to know that flow and apply it automatically, without telling it from scratch in every conversation."
 
-That's exactly what Rules and Skills are for.
+That's exactly what Rules and Skills are for. (Your Lab 5 report even suggested it - the **Create skill** follow-up under the report is this lab's premise. Here you'll build it deliberately, field by field, so you know how the machinery works.)
 
 ---
 
