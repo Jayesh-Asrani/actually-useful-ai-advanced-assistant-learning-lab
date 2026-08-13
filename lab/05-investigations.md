@@ -1,4 +1,4 @@
-# Lab 4 - 🔎 Investigations
+# Lab 5 - 🔎 Investigations
 
 ## Learning objectives
 
@@ -16,7 +16,7 @@
 Your facilitator has enabled one or more failure flags on your stack - connection leaks, failing reads, cart errors, checkout slowdowns - and won't say which. At the end of the lab you'll be asked: **what was broken, what's the root cause, and what's your evidence?**
 
 > [!IMPORTANT]
-> **No peeking at the Feature Flags dashboard** - it gives away the answer. And **leave the failure running**: Lab 5's Skill investigates this same incident.
+> **No peeking at the Feature Flags dashboard** - it gives away the answer. And **leave the failure running**: Lab 6's Skill investigates this same incident.
 
 ---
 
@@ -39,7 +39,7 @@ The storefront is degraded - users are hitting errors and some content isn't loa
 
 A Lead investigator spawns specialists that work in parallel - Prometheus (metrics), Loki (logs), Tempo (traces), MCP (recent changes). Watch the **Agent activity timeline** fill in, and hover any agent's bar to see what it checked and the cause level it attributed: **Local Cause**, **Systemic Cause**, or **Root Cause**.
 
-The run takes a few minutes and continues in the background - feel free to start Lab 5 and come back (find runs under **Assistant → Investigations**).
+The run takes a few minutes and continues in the background - feel free to start Lab 6 and come back (find runs under **Assistant → Investigations**).
 
 ---
 

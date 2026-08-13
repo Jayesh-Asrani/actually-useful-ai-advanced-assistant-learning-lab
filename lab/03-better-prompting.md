@@ -72,7 +72,7 @@ Try switching modes for the same prompt and notice the difference:
 Show me what's happening with the productcatalogservice.
 ```
 
-Send it once in **Assistant** mode (default) and once in **Deep Investigation** mode (you'll explore this more in Lab 4). The Assistant-mode response is a quick chat-style summary; Deep Investigation kicks off a background multi-agent run that produces a structured report.
+Send it once in **Assistant** mode (default) and once in **Deep Investigation** mode (you'll explore this more in Lab 5). The Assistant-mode response is a quick chat-style summary; Deep Investigation kicks off a background multi-agent run that produces a structured report.
 
 > [!TIP]
 > **Naming mismatch worth knowing:** the docs call it "Investigation" mode, but the UI labels it "Deep Investigation." Same feature. The "Deep" prefix is UI-only and distinguishes it from the lighter inline investigation behavior in default Assistant mode.

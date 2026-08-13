@@ -10,7 +10,7 @@
 - Understand the trade-offs: tool limits, auto-approve vs. human-in-the-loop, blast radius
 
 > [!NOTE]
-> **This lab has two parts that can be run independently.** Part A uses the Kubernetes MCP to remediate the issue you found in Lab 4. Part B uses the GitHub MCP to file an issue about the same problem. They share the same scenario but neither depends on the other - you can run both, or pick whichever interests you.
+> **This lab has two parts that can be run independently.** Part A uses the Kubernetes MCP to remediate the issue you found in Lab 5. Part B uses the GitHub MCP to file an issue about the same problem. They share the same scenario but neither depends on the other - you can run both, or pick whichever interests you.
 
 ---
 
@@ -46,7 +46,7 @@ If any are missing or show errors, let your facilitator know - the workshop stac
 
 ## The scenario
 
-Continuing from Lab 4: your Deep Investigation identified that `productcatalogservice` is leaking postgres connections, hitting the connection limit, and crashing. The pods are restarting in a sawtooth pattern. You have two follow-ups to make:
+Continuing from Lab 5: your Deep Investigation identified that `productcatalogservice` is leaking postgres connections, hitting the connection limit, and crashing. The pods are restarting in a sawtooth pattern. You have two follow-ups to make:
 
 1. **Immediate**: get the storefront back to a working state by forcing a clean restart
 2. **Longer-term**: file a GitHub issue so engineering can fix the connection leak in code
@@ -67,7 +67,7 @@ Using the Kubernetes MCP, list the productcatalogservice pods in the ecommerce-p
 
 The Assistant should call the `pods_list_in_namespace` tool on the Kubernetes MCP and return a table. You're looking for:
 
-- **Restart count** elevated (matches the sawtooth pattern from Lab 4)
+- **Restart count** elevated (matches the sawtooth pattern from Lab 5)
 - **Age** young - confirming the pods have been recently restarted
 - **Status** likely `Running` (the crash loop is intermittent - postgres exhausts → crash → restart → run for a bit → repeat)
 
@@ -189,9 +189,9 @@ Click through to verify the issue actually appeared on GitHub. You can also chec
 > [!TIP]
 > **The default repo is set via a baked-in Rule.** The workshop stack has a Rule called "Default GitHub Repo" that points all GitHub MCP actions at `field-eng-appenv-mirror` unless you explicitly override. This is why you didn't have to specify the org and repo every time. Use the same pattern in your own setup - a Rule that anchors the default target so users don't have to remember it.
 
-### B3 - Connect it to the Skill from Lab 5
+### B3 - Connect it to the Skill from Lab 6
 
-Now combine everything you've built. Update your `Investigate frontend 500s` Skill from Lab 5 with a new final step:
+Now combine everything you've built. Update your `Investigate frontend 500s` Skill from Lab 6 with a new final step:
 
 ```text
 7. If the root cause is confirmed, draft a GitHub issue in field-eng-appenv-mirror summarizing the symptom, root cause, and recommended fix. Show me the draft before submitting.
@@ -269,7 +269,7 @@ A few things worth knowing:
 
 - [ ] Drafted a GitHub issue for the postgres connection leak
 - [ ] Submitted the issue and clicked through to verify it was created
-- [ ] Updated the `Investigate frontend 500s` Skill from Lab 5 to include the GitHub follow-up step
+- [ ] Updated the `Investigate frontend 500s` Skill from Lab 6 to include the GitHub follow-up step
 - [ ] Closed your generated issue (see cleanup below)
 
 ---

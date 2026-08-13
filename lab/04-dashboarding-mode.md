@@ -1,4 +1,4 @@
-# Lab 6 - 📊 Dashboarding Mode
+# Lab 4 - 📊 Dashboarding Mode
 
 Build a storefront overview dashboard without writing a single query, using the Assistant's **Dashboarding** mode.
 
@@ -40,13 +40,15 @@ Change the postgres connections panel to show the max connection limit as a hori
 Add a text panel at the top explaining what this dashboard is for and who owns it.
 ```
 
-## Step 4 - Stress-test it
+## Step 4 - Set your baseline
 
-Open the dashboard and check: do the panels show the incident from Lab 4? Ask the Assistant:
+Open the dashboard and take in the healthy state - request rates steady, errors near zero. Then ask the Assistant:
 
 ```text
-Look at @Storefront Overview - <your initials>. Which panel best captures the incident from earlier, and what would you add to catch it faster next time?
+Look at @Storefront Overview - <your initials>. Summarize the current health of the storefront and tell me which panel you'd watch most closely if something started to go wrong.
 ```
+
+Keep this dashboard open in a tab. In the next lab, something is going to break - and you'll see it here first.
 
 ---
 
@@ -55,3 +57,4 @@ Look at @Storefront Overview - <your initials>. Which panel best captures the in
 - [ ] Built a multi-row dashboard entirely through Dashboarding mode
 - [ ] Iterated on panels conversationally (thresholds, annotations, layout)
 - [ ] Used an `@` mention to have the Assistant analyze your own dashboard
+- [ ] Kept the dashboard open as your baseline for Lab 5

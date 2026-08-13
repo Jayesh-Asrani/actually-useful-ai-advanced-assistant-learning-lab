@@ -1,4 +1,4 @@
-# Lab 5 - 📚 Rules and Skills
+# Lab 6 - 📚 Rules and Skills
 
 ## Learning objectives
 

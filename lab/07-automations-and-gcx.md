@@ -89,10 +89,10 @@ gcx metrics query 'sum(rate(traces_spanmetrics_calls_total{service_name="fronten
 
 ### Step 4 - Talk to the Assistant from the CLI
 
-This is where the loop closes with Lab 4:
+This is where the loop closes with Lab 5:
 
 ```sh
-# your Deep Investigation from Lab 4, in the terminal
+# your Deep Investigation from Lab 5, in the terminal
 gcx assistant investigations list
 
 # ask the Assistant a question without opening Grafana
@@ -117,4 +117,4 @@ This is the punchline: the same access you just used by hand is what gives an AI
 - [ ] Deleted (or disabled) the Automation
 - [ ] Installed gcx and logged into your workshop stack
 - [ ] Ran at least one metrics or logs query from the terminal
-- [ ] Listed your Lab 4 investigation via `gcx assistant investigations list`
+- [ ] Listed your Lab 5 investigation via `gcx assistant investigations list`
