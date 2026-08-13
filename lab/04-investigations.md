@@ -2,6 +2,7 @@
 
 ## Learning objectives
 
+- Inject a real failure into the storefront using the environment's feature flags
 - Run a Deep Investigation against the storefront
 - Watch a multi-agent swarm fan out across metrics, logs, traces, and profiles
 - Read the structured investigation report and refine it through the Workspace conversation
@@ -15,10 +16,38 @@
 
 This is the canonical use case for Investigations - a problem that touches multiple services (frontend → product catalog → postgres), needs cross-signal correlation, and a team that doesn't have 30 minutes to do it by hand.
 
+And in this workshop, **you** get to cause the incident. Your environment ships with fault-injection feature flags - you'll flip one, watch your storefront break, and then let the Assistant find what you did.
 
 ---
 
-## Step 1 - Start a Deep Investigation
+## Step 1 - Break your storefront (inject a failure)
+
+Your stack has a **Feature Flags** dashboard that controls failure scenarios in the e-commerce app. Open it:
+
+```text
+https://<your-stack>.grafana.net/d/appenv-feature-flags/feature-flags?from=now-3h&to=now&timezone=browser&refresh=30s
+```
+
+Scroll to the **Flag Details** panel - each flag has a description and **Enable / Disable** actions. Turn on the flag for this lab's scenario:
+
+- **`productCatalogStopClosingPostgresConnections`** - the product catalog stops closing its postgres connections. Connections pile up until postgres hits its limit, the service crashes and restarts, and the storefront starts throwing 500s. This is the incident the rest of this lab investigates.
+
+Want more chaos (or a different scenario)? Also try:
+
+- **`productCatalogReadFromPostgres`** - forces catalog reads through postgres, amplifying the connection-leak blast radius
+- Browse the rest of the flag list - cart failures, checkout slowdowns, payment timeouts, image slow-loads - each one produces a different investigation
+
+Confirm the flip in the **Flag State History** panel (your flag should show **On**), then open your storefront's App URL and refresh the homepage a few times - within a few minutes you should start seeing errors and missing products.
+
+> [!TIP]
+> **Flip the flag, then keep reading.** The failure needs a few minutes of telemetry to become findable. By the time you've read Step 2 and written your investigation prompt, there will be plenty of evidence to discover.
+
+> [!NOTE]
+> **Leave the flag on after this lab.** In Lab 5 you'll encode this exact investigation into a reusable Skill and run it against the same live incident - that's the payoff: the failure you created here is the one your Skill debugs faster next time. Your facilitator handles flag cleanup at the end.
+
+---
+
+## Step 2 - Start a Deep Investigation
 
 In the left sidebar, navigate to **Assistant → Investigations**. You'll land on the workbooks list where past investigations live.
 
@@ -41,7 +70,7 @@ Submit the investigation.
 
 ---
 
-## Step 2 - Watch the multi-agent fan-out
+## Step 3 - Watch the multi-agent fan-out
 
 Investigations kicks off a Lead investigator first, which then spawns specialized sub-agents that work the problem in parallel - a Prometheus Specialist for metrics, a Loki Error Specialist and Loki Specialist for logs, a Tempo Specialist for traces, and an MCP Specialist for things like recent code changes. The Workspace conversation alongside the report shows progress as they work.
 
@@ -64,7 +93,7 @@ This usually takes a few minutes. The investigation runs in the background, so y
 
 ---
 
-## Step 3 - Read the report
+## Step 4 - Read the report
 
 When the investigation completes, the page header shows the Assistant's Root Cause headline and the workbook status flips to **Completed**.
 
@@ -89,7 +118,7 @@ Click into **Timeline** to see the chronological sequence the investigation reco
 
 ---
 
-## Step 4 - Refine the report
+## Step 5 - Refine the report
 
 The report isn't directly editable - but the investigation is still a collaborative artifact, not a one-shot AI output. You can refine it through the **Workspace conversation** alongside the report.
 
@@ -125,6 +154,7 @@ Draft the rollback steps as a backlog item I can paste into our issue tracker.
 
 ## ✅ Checklist
 
+- [ ] Enabled a failure flag on the Feature Flags dashboard and confirmed the storefront broke
 - [ ] Launched a Deep Investigation against the storefront
 - [ ] Watched the multi-agent fan-out complete and hovered an agent to see its cause-level attribution
 - [ ] Read the Detailed report, scanned Tree View and Timeline, and identified the root cause
