@@ -26,19 +26,24 @@ Memories are stored as searchable chunks and retrieved via semantic search when 
 
 ---
 
-## Step 1 - Run the discovery scan
+## Step 1 - Run the discovery scan (or refresh the memories)
+
+> [!IMPORTANT]
+> **Memories are org-wide** - they belong to the stack, not to your user. There is one shared set of memories per stack, so what you see depends on whether a scan has already been run on yours.
 
 1. Open the Assistant
 2. Click the **three-dot menu** and go to **Settings > Assistant memories**
 
-You'll see a **Discover Your Infrastructure** page with a **Start Discovery Scan** button.
+What you do next depends on what the page shows:
 
-Click it to kick off the scan - the Assistant will crawl your connected data sources (Prometheus, Loki, Tempo) and build memories for each discovered service.
+**If you see the "Discover Your Infrastructure" page** (no memories yet): click **Start Discovery Scan**. The Assistant will crawl your connected data sources (Prometheus, Loki, Tempo) and build memories for each discovered service. The scan takes a minute or two - you can stay on the page and watch it progress.
 
-The scan takes a minute or two. You can stay on the page and watch it progress.
+**If memories are already listed** (a scan has run on this stack before): click **Refresh memories** instead. This triggers a fresh scan on demand so the memories reflect the environment's current state - then skip ahead to Step 2 while it runs, since the existing memories are already browsable.
 
 > [!NOTE]
 > Memories are generated from the data sources the Assistant has access to. Prometheus is the primary driver - services need metrics in a connected Prometheus data source to be discovered. Loki and Tempo enrich the memories with log structure and trace data.
+>
+> Because memories are org-wide, on a shared stack you'd coordinate scans with your team rather than everyone triggering their own - on your dedicated workshop stack, it's all yours.
 
 ---
 
@@ -78,6 +83,7 @@ Because the Assistant has memories about productcatalogservice - its key metrics
 
 ## How memories are managed
 
+- **Org-wide scope**: one shared set of memories per stack - a scan or refresh by any authorized user updates them for everybody
 - **Auto-refresh**: memories regenerate weekly to stay current
 - **Manual refresh**: click **Refresh memories** in the Assistant memories settings to trigger a scan on demand
 - **RBAC**: memories respect data source permissions. Users only see memories from data sources they're authorized to access
@@ -89,8 +95,8 @@ See the [Grafana documentation on Infrastructure Memory](https://grafana.com/doc
 
 ## Checklist
 
-- [ ] Ran the discovery scan from Assistant > Settings > Assistant memories
+- [ ] Ran the discovery scan (or refreshed existing memories) from Assistant > Settings > Assistant memories
 - [ ] Reviewed the generated memories for the workshop stack
 - [ ] Asked the Assistant about services and got a memory-powered response
 - [ ] Asked about specific service health and got concrete metric recommendations
-- [ ] Understand how memories auto-refresh and respect RBAC
+- [ ] Understand that memories are org-wide, auto-refresh weekly, and respect RBAC
