@@ -8,7 +8,7 @@ The Assistant isn't only a chat panel. In this lab you'll run it two more ways: 
 
 ## Part 1 - Automations (~7 min)
 
-In Lab 3 you walked through the Automation wizard without saving — because a *scheduled* automation keeps consuming Assistant tokens after the session ends. Here's the exception, with guardrails: create one with **no schedule** (manual-only runs), trigger it once, and delete it when you're done.
+Automations run a saved prompt for you — on a schedule or on demand — with each run landing in its own Assistant conversation. One caution on a workshop stack: a *scheduled* automation keeps consuming Assistant tokens after the session ends. So we'll do this with guardrails: create one with **no schedule** (manual-only runs), trigger it once, and delete it when you're done.
 
 ### Step 1 - Create a manual-only Automation
 

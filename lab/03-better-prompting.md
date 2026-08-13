@@ -7,7 +7,6 @@
 - Use `@` mentions to pin the Assistant to specific data sources, dashboards, and panels
 - Iteratively refine a debugging conversation
 - Save a reusable prompt as a Quickstart and run it from a button
-- Know when to reach for an Automation instead of a Quickstart
 - Give feedback that actually gets routed to Grafana engineers
 
 ---
@@ -163,49 +162,12 @@ If you don't see it, confirm the **Enabled** toggle is on for the Quickstart und
 > [!NOTE]
 > **Why this matters:** Quickstarts encode your team's "how to start a check" knowledge into the Assistant's UI. New team members get expert-level prompts for free. Promote successful personal Quickstarts to team-wide as they prove themselves.
 
----
-
-## Step 6 - Schedule recurring runs with Automations
-
-> [!NOTE]
-> **This step is a walk-through only - do not create an automation in the workshop stack.** Automation runs consume Assistant tokens from a shared monthly limit, and an enabled schedule keeps consuming them after the session ends. Read through and explore the settings UI, but stop before saving anything.
-
-For prompts you want to run on a schedule (daily summary, weekly health check, end-of-week status report) rather than on demand, reach for an **Automation** instead of a Quickstart. Full feature reference: [Grafana Assistant Automations docs](https://grafana.com/docs/grafana-cloud/machine-learning/assistant/guides/automations/).
-
-Navigate to **Assistant → Settings → Automations** (sibling to Quickstart prompts). When you have none yet, the page looks like this:
-
-Click **+ New automation** to open the 3-step Create automation wizard.
-
-### Step 6a - Basics
-
-Give the automation a name, optional description, and choose visibility - **Everybody** (team-wide) or **Just me** (personal).
-
-### Step 6b - Schedule
-
-Set a recurring schedule, or leave it empty for manual-only runs. You can build the schedule visually (Repeat / on / at / Timezone) or switch to **Expression** to paste a cron string directly. The dialog shows you both the human-readable summary and the cron expression as you build it.
-
-**Minimum interval is 15 minutes between runs.** The dialog enforces it.
-
-### Step 6c - Prompt
-
-Type the prompt that gets sent each time the automation fires. Type `/` at the start to invoke a Skill instead of an inline prompt. The **Start enabled** toggle controls whether the automation runs immediately after saving. The **Notifications** section lets you post each run's update to a Slack channel or DM yourself.
-
-Each scheduled run creates a dedicated Assistant conversation, so you can inspect results after the fact, follow each run back to its full conversation, and compare runs over time.
-
-### Example use cases worth saving as Automations
-
-- **Daily morning summary** (`0 9 * * 1-5`, weekdays): `Summarize the top 5 errors and slowest endpoints across all services in the last 24 hours. Flag anything outside normal range.`
-- **Weekly capacity check** (`0 9 * * 1`, Monday morning): `For each productcatalogservice pod, list current CPU, memory, and restart count over the past 7 days. Flag any pod above 80% CPU.`
-
-> [!WARNING]
-> **Token consumption matters.** Automation runs count against your monthly Assistant token limits, and frequent schedules accumulate fast across the team. Default to longer intervals and tighten only when there's a clear reason.
-
-> [!NOTE]
-> Personal automations need the `grafana-assistant-app.automations.user:*` role; team-wide ("Everybody" visibility) needs `grafana-assistant-app.automations.tenant:*`. Either way, plugin access (`plugins.app:access`) is required. See the [Automations doc](https://grafana.com/docs/grafana-cloud/machine-learning/assistant/guides/automations/) for full setup.
+> [!TIP]
+> Want the same prompt to run **on a schedule** instead of on demand? That's an **Automation** - covered hands-on in the optional [Automations & gcx lab](./optional-automations-and-gcx.md).
 
 ---
 
-## Step 7 - Give feedback that engineers actually see
+## Step 6 - Give feedback that engineers actually see
 
 Every Assistant response has thumbs-up and thumbs-down buttons. Scroll back to any response from this lab and locate the feedback controls - you don't need to submit anything right now. The point is to know they're there.
 
@@ -223,5 +185,4 @@ In practice: clicking thumbs-down and adding a specific note (e.g., "Picked the 
 - [ ] Used `@` to reference a data source and a dashboard
 - [ ] Walked through an iterative investigation in one conversation
 - [ ] Saved a Quickstart prompt and ran it from the button
-- [ ] Located Assistant → Settings → Automations and can name one prompt worth scheduling
 - [ ] Located the thumbs-up / thumbs-down feedback controls on an Assistant response
