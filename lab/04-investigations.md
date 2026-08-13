@@ -2,7 +2,7 @@
 
 ## Learning objectives
 
-- Inject a real failure into the storefront using the environment's feature flags
+- Investigate a real failure your facilitator injected into the storefront - without knowing what broke
 - Run a Deep Investigation against the storefront
 - Watch a multi-agent swarm fan out across metrics, logs, traces, and profiles
 - Read the structured investigation report and refine it through the Workspace conversation
@@ -16,34 +16,25 @@
 
 This is the canonical use case for Investigations - a problem that touches multiple services (frontend → product catalog → postgres), needs cross-signal correlation, and a team that doesn't have 30 minutes to do it by hand.
 
-And in this workshop, **you** get to cause the incident. Your environment ships with fault-injection feature flags - you'll flip one, watch your storefront break, and then let the Assistant find what you did.
+And here's the workshop twist: **your facilitator just broke your environment - and won't tell you how.** Your job is to figure out what broke and why, with evidence. At the end of this lab the facilitator will ask you three questions: *What was broken? What's the root cause? What's your evidence?* Then comes the reveal.
 
 ---
 
-## Step 1 - Break your storefront (inject a failure)
+## Step 1 - Notice the symptoms (something is wrong)
 
-Your stack has a **Feature Flags** dashboard that controls failure scenarios in the e-commerce app. Open it:
+Your environment ships with fault-injection **feature flags** that break the e-commerce app in realistic ways - connection leaks, failing reads, cart errors, checkout slowdowns, payment timeouts. Your facilitator has just enabled one or more of them (for example `productCatalogStopClosingPostgresConnections` or `productCatalogReadFromPostgres`) on your stack. **Which ones? That's the mystery.**
 
-```text
-https://<your-stack>.grafana.net/d/appenv-feature-flags/feature-flags?from=now-3h&to=now&timezone=browser&refresh=30s
-```
+Start where a real on-call engineer starts - with the symptoms:
 
-Scroll to the **Flag Details** panel - each flag has a description and **Enable / Disable** actions. Turn on the flag for this lab's scenario:
+1. Open your storefront's App URL and click around: homepage, a product page, the cart. Refresh a few times.
+2. Note what you observe: errors? missing content? slow pages? Which user actions are affected?
+3. Jot down your symptom description - you'll feed it to the investigation in the next step, and the better you describe the symptom, the better the investigation starts.
 
-- **`productCatalogStopClosingPostgresConnections`** - the product catalog stops closing its postgres connections. Connections pile up until postgres hits its limit, the service crashes and restarts, and the storefront starts throwing 500s. This is the incident the rest of this lab investigates.
-
-Want more chaos (or a different scenario)? Also try:
-
-- **`productCatalogReadFromPostgres`** - forces catalog reads through postgres, amplifying the connection-leak blast radius
-- Browse the rest of the flag list - cart failures, checkout slowdowns, payment timeouts, image slow-loads - each one produces a different investigation
-
-Confirm the flip in the **Flag State History** panel (your flag should show **On**), then open your storefront's App URL and refresh the homepage a few times - within a few minutes you should start seeing errors and missing products.
-
-> [!TIP]
-> **Flip the flag, then keep reading.** The failure needs a few minutes of telemetry to become findable. By the time you've read Step 2 and written your investigation prompt, there will be plenty of evidence to discover.
+> [!IMPORTANT]
+> **No peeking.** The Feature Flags dashboard on your stack would tell you the answer in one glance - that's not how production incidents work. Stay out of it until the reveal at the end of this lab.
 
 > [!NOTE]
-> **Leave the flag on after this lab.** In Lab 5 you'll encode this exact investigation into a reusable Skill and run it against the same live incident - that's the payoff: the failure you created here is the one your Skill debugs faster next time. Your facilitator handles flag cleanup at the end.
+> **Leave the failure running after this lab.** In Lab 5 you'll encode this investigation into a reusable Skill and run it against the same live incident - the failure you just root-caused is the one your Skill debugs faster next time. Your facilitator handles flag cleanup at the end.
 
 ---
 
@@ -53,19 +44,19 @@ In the left sidebar, navigate to **Assistant → Investigations**. You'll land o
 
 Click **+ New Investigation** to open the **Assistant Investigations** prompt. At the bottom-left of the input, confirm the **Deep Investigation** mode is selected (it should be the default).
 
-You'll be prompted to describe the problem. Use this:
+You'll be prompted to describe the problem. Describe **what you observed in Step 1** - symptoms only, since you don't know the cause. For example:
 
 ```text
-The storefront homepage is showing 500 errors and products aren't displaying. The "Frontend Success 99.5%" SLO is burning. Investigate the full request chain - frontend, productcatalogservice, postgres - including recent deployments. Report the most likely root cause with supporting evidence.
+The storefront is degraded - users are hitting errors and some content isn't loading. The "Frontend Success 99.5%" SLO is burning. Investigate the storefront services and their dependencies, including any recent changes, and report the most likely root cause with supporting evidence.
 ```
 
-Submit the investigation.
+Swap in your own symptom details (which pages, which actions, what you saw). Submit the investigation.
 
 > [!TIP]
 > **Why this prompt works:**
-> - States the symptom (500 errors, missing products) and the business impact (SLO burning)
-> - Names the suspected dependency chain (frontend → productcatalog → postgres)
-> - Explicitly asks about recent deployments (a leading cause of incidents)
+> - States the symptoms you actually observed and the business impact (SLO burning)
+> - Scopes the search (storefront services and dependencies) without presuming the cause - let the agents build the hypotheses
+> - Explicitly asks about recent changes (a leading cause of incidents)
 > - Asks for both a conclusion AND the supporting evidence
 
 ---
@@ -82,7 +73,7 @@ For example, hovering the Prometheus Specialist surfaces a `[Local Cause]` findi
 
 Other agents land on broader causes - here the Prometheus Specialist's Postgres query error check is flagged as a `[Systemic Cause]`, and the MCP Specialist's check of productcatalogservice v3.73.0 code changes ends up labeled as the `[Root Cause]`:
 
-For this scenario, the most useful signals to watch for:
+What the specialists find depends on which failure your facilitator picked. For example, if your incident turns out to be the postgres connection-leak scenario, the tell-tale signals look like:
 
 - **Logs**: `pq: sorry, too many clients already` (postgres connection exhaustion) and `invalid memory address or nil pointer dereference` (service crash)
 - **Metrics**: postgres connection count over time, productcatalogservice request rate dropping, frontend error rate climbing
@@ -103,7 +94,7 @@ You get three views you can switch between:
 - **Tree View** - the hypothesis tree showing how each specialist's findings combined into a single root cause
 - **Timeline** - the chronological event sequence the investigation reconstructed, with the relevant charts attached to each event
 
-Start in the **Detailed report** view. Read it end-to-end - don't just scan. For this scenario, look for these three things explicitly:
+Start in the **Detailed report** view. Read it end-to-end - don't just scan. You're hunting for three things: the **smoking-gun evidence**, the **failure pattern**, and a **root cause statement** you could defend to a teammate. For the connection-leak scenario, as a worked example, those look like:
 
 1. **The smoking-gun log line.** The `pq: sorry, too many clients already` error should show up in the findings - that's postgres telling you it's out of connections.
 2. **The sawtooth pattern.** Look for evidence the postgres connection count spikes, the product catalog crashes, connections drop, and the cycle repeats. That pattern is the signature of a connection leak.
@@ -114,7 +105,7 @@ Then switch to **Tree View** to see what else the Assistant considered. Each nod
 Click into **Timeline** to see the chronological sequence the investigation reconstructed - which symptoms appeared first, when the deployment fired, when the connection pool exhausted, and how it cascaded to frontend 500s. Each event has the relevant chart attached.
 
 > [!NOTE]
-> **What "good" looks like for this investigation:** the report should connect three things explicitly - the frontend 500 errors, the product catalog restarts, and the postgres connection exhaustion. If it only finds one piece, that's a partial result you'd need to follow up on. If it correlates all three with a clear hypothesis (connection leak), the Assistant did the cross-signal correlation that's hard to do manually.
+> **What "good" looks like:** the report should connect the user-facing symptom, the failing component, and the underlying mechanism - not just one of them. If it only finds one piece, that's a partial result you'd need to follow up on. If it correlates all three with a clear hypothesis, the Assistant did the cross-signal correlation that's hard to do manually.
 
 ---
 
@@ -152,10 +143,24 @@ Draft the rollback steps as a backlog item I can paste into our issue tracker.
 
 ---
 
+## Step 6 - Report back (the reveal)
+
+When the room's investigations have landed, your facilitator will ask each table:
+
+1. **What was broken?** (the user-facing symptom and the failing component)
+2. **What's the root cause?** (the mechanism, not just the service name)
+3. **What's your evidence?** (the log line, metric pattern, or trace that convinced you)
+4. **What would you do about it?** (rollback, restart, fix - and how you'd prevent recurrence)
+
+Then the facilitator reveals which flag(s) were actually flipped. Compare: did your investigation name the right mechanism? If your root cause was close but not exact, that's normal - and it's exactly why the report's Tree View and evidence links matter more than the headline.
+
+---
+
 ## ✅ Checklist
 
-- [ ] Enabled a failure flag on the Feature Flags dashboard and confirmed the storefront broke
-- [ ] Launched a Deep Investigation against the storefront
+- [ ] Observed the storefront symptoms firsthand (without peeking at the Feature Flags dashboard)
+- [ ] Launched a Deep Investigation described in terms of the symptoms
 - [ ] Watched the multi-agent fan-out complete and hovered an agent to see its cause-level attribution
 - [ ] Read the Detailed report, scanned Tree View and Timeline, and identified the root cause
 - [ ] Refined the report via the Workspace conversation (added a hint or asked the Assistant to convert findings into another artifact)
+- [ ] Reported what broke, the root cause, and your evidence at the reveal

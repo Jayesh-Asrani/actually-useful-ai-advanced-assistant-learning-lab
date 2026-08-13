@@ -15,7 +15,7 @@ Hands-on workshop: power-user techniques for **Grafana Assistant** and **Investi
 | 1 | [Get Ready — baseline prompts](lab/01-get-ready.md) | Send a vague prompt, then a structured one — and see why "action verb + scope + time range" changes everything | ~10 min |
 | 2 | [Infrastructure Memories](lab/02-infrastructure-memories.md) | Run a discovery scan so the Assistant learns your services, metrics, and dependencies — then watch answers get specific | ~10 min |
 | 3 | [Better Prompting](lab/03-better-prompting.md) | Master the power-user toolkit: verbs, modes, `@` mentions, iterative refinement, and one-click Quickstarts | ~18 min |
-| 4 | [Investigations](lab/04-investigations.md) | The storefront breaks for real — launch a multi-agent Deep Investigation and root-cause a postgres connection leak in minutes | ~25 min |
+| 4 | [Investigations](lab/04-investigations.md) | Something just broke — and no one will tell you what. Root-cause it with a multi-agent Deep Investigation and defend your evidence at the reveal | ~22 min |
 | 5 | [Rules and Skills](lab/05-rules-and-skills.md) | Encode what you just learned as an always-on Rule and a reusable Skill the Assistant finds on its own | ~10 min |
 | 6 | [Dashboarding Mode](lab/06-dashboarding-mode.md) | Build a full storefront dashboard without writing a single query | ~8 min |
 | 7 | [Automations & gcx](lab/07-automations-and-gcx.md) | Run the Assistant on a schedule, then query production and talk to the Assistant from your terminal | ~12 min |
