@@ -17,6 +17,14 @@ It's also an **agentic AI app**: a `chatservice` with shopping agents (`general_
 
 In the **top bar**, click **Open Grafana Assistant** (the sparkle ✦). A chat panel opens on the right. Say hi — if it answers, you're set. There's also an **Assistant** entry in the left nav.
 
+Now put it to work straight away — instead of hunting through the nav yourself, ask:
+
+```text
+Navigate to Observability → Kubernetes
+```
+
+It takes you there. Handy habit: when you don't know where something lives, ask the Assistant to take you.
+
 ## 3. Know the map (left nav)
 
 You'll move between these areas today:
