@@ -32,7 +32,7 @@ Memories are stored as searchable chunks and retrieved via semantic search when 
 > **Memories are org-wide** - they belong to the stack, not to your user. There is one shared set of memories per stack, so what you see depends on whether a scan has already been run on yours.
 
 1. Open the Assistant
-2. Click the **three-dot menu** and go to **Settings > Assistant memories**
+2. Click the **three-dot menu** and go to **Settings > Infrastructure memory**
 
 What you do next depends on what the page shows:
 
